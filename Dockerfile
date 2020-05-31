@@ -5,7 +5,7 @@ WORKDIR /work
 COPY ./ ./
 #RUN make justgenerate
 RUN	mkdir tmp
-RUN	java -jar third_party/openapi-generator-cli.jar generate -g go-gin-server --package-name v1 -i api/openapi-1.yaml -Dmodels -o tmp
+RUN	java -jar third_party/tools/openapi-generator-cli.jar generate -g go-gin-server --package-name v1 -i api/openapi-1.yaml -Dmodels -o tmp
 
 FROM golang:1.12.0 as build
 
@@ -22,7 +22,8 @@ RUN make buildlinux
 
 FROM scratch
 #RUN mkdir -p third_party/swaggerui & mkdir -p api
-COPY --from=build /build/out/k8deployer_x64linux ./k8deployer_x64linux
+COPY --from=build /build/out/opencrisisline2_x64linux ./opencrisisline2_x64linux
 COPY --from=build /build/third_party/swaggerui/* ./third_party/swaggerui/
+COPY --from=build /build/web/* ./web/
 COPY --from=build /build/api/* ./api/
-ENTRYPOINT ["./k8deployer_x64linux"]
+ENTRYPOINT ["./opencrisisline2_x64linux"]

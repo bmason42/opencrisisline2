@@ -16,7 +16,7 @@ buildmac: export CGO_ENABLED=0
 buildmac: export GO111MODULE=on
 buildmac:
 	mkdir -p out
-	rm -f  out/k8deployer_darwin
+	rm -f  out/${APPNAME}_darwin
 	go build -o out/${APPNAME}_darwin app/servermain.go
 
 buildlinux:	export GOOS=linux
@@ -25,7 +25,7 @@ buildlinux: export CGO_ENABLED=0
 buildlinux: export GO111MODULE=on
 buildlinux:
 	mkdir -p out
-	rm -f  out/k8deployer_x64linux
+	rm -f  out/${APPNAME}_x64linux
 	go build -o out/${APPNAME}_x64linux app/servermain.go
 
 
