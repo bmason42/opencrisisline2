@@ -29,5 +29,5 @@ func healthCheckGetUnversioned(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 func swaggerUIGetHandler(c *gin.Context) {
-	c.Redirect(302, "/opencrisisline2/index_v1.html")
+	c.Redirect(302, "/opencrisisline2/swaggerui/index_v1.html")
 }

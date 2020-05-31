@@ -66,17 +66,16 @@ func addOpenApiDefRoutes(router *gin.Engine) {
 
 func addWebUIRoutes(router *gin.Engine) {
 	webUI := static.LocalFile("web/", false)
-	webHandler := static.Serve("/opencrisisline2/", webUI)
+	webHandler := static.Serve("/opencrisisline2", webUI)
 	router.Use(webHandler)
 }
 func addSwaggerUIRoutes(router *gin.Engine) {
-	swagger := router.Group("/opencrisisline2/openapi/")
-	swagger.Handle("GET", "index.html", swaggerUIGetHandler)
-	swagger.Handle("GET", "", swaggerUIGetHandler)
-	swagger.Handle("GET", "/", swaggerUIGetHandler)
+	router.Handle("GET", "/opencrisisline2/swaggerui/index.html", swaggerUIGetHandler)
+	router.Handle("GET", "/opencrisisline2/swaggerui", swaggerUIGetHandler)
+	router.Handle("GET", "/opencrisisline2/swaggerui/", swaggerUIGetHandler)
 	swaggerUI := static.LocalFile("third_party/swaggerui/", false)
-	webHandler := static.Serve("/opencrisisline2/openapi/", swaggerUI)
-	swagger.Use(webHandler)
+	webHandler := static.Serve("/opencrisisline2/swaggerui/", swaggerUI)
+	router.Use(webHandler)
 }
 func addUnversionedRoutes(router *gin.Engine) {
 	router.Handle("GET", "/opencrisisline2/about", aboutGetUnversioned)
