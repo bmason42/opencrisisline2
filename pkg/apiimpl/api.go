@@ -5,9 +5,11 @@
 package apiimpl
 
 import (
+	"fmt"
 	"github.com/bmason42/opencrisisline2/pkg/generated/v1"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -24,6 +26,17 @@ func aboutGetUnversioned(c *gin.Context) {
 
 	c.JSON(http.StatusOK, resp)
 	log.Println("In about")
+}
+func postHandler(c *gin.Context) {
+	bytes, e := ioutil.ReadAll(c.Request.Body)
+	if e != nil {
+		c.JSON(500, "")
+		return
+	}
+	s := string(bytes)
+	fmt.Println(s)
+	c.JSON(201, "")
+
 }
 func healthCheckGetUnversioned(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})

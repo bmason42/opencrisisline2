@@ -18,10 +18,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AboutResponse'
+  /support-request:
+    post:
+      summary: Post to this URL to start a support request
+      description: Post to this URL to start a support request
+      requestBody:
+        description: Login data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HelpRequest'
+
+      responses:
+        '201':
+          description: request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelpResponse'
+        '500':
+          description: internal error issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 
 components:
   schemas:
+    HelpResponse:
+      type: object
+      properties:
+        requestID:
+          type: string
+
+    HelpRequest:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+        callerName:
+          type: string
+        message:
+          type: string
 
     ErrorResponse:
       type: object

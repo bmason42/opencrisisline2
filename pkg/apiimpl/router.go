@@ -6,7 +6,6 @@ package apiimpl
 
 import (
 	"context"
-	"fmt"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -51,7 +50,8 @@ func newRouter() *gin.Engine {
 	router := gin.Default()
 	v1 := router.Group("/opencrisisline2/v1")
 	v1.Handle("GET", "/about", aboutGetUnversioned)
-	fmt.Println(v1)
+
+	v1.Handle("POST", "support-request", postHandler)
 
 	addOpenApiDefRoutes(router)
 	addSwaggerUIRoutes(router)
