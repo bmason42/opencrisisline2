@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: Open Crisis Line API
+  description: A service to initial help calls
+  version: 1.0.0
+servers:
+  - url: /opencrisisline2/v1
+
+paths:
+  /about:
+    get:
+      summary: Returns a version info
+      description: Optional extended description in Markdown.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AboutResponse'
+
+
+components:
+  schemas:
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          description: An I18N string
+          type: string
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+
+    AboutResponse:
+      type: object
+      properties:
+        appVersion:
+          type: string
+        apiVersions:
+          type: array
+          items:
+            type: string
+
