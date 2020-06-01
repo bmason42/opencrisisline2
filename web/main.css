@@ -35,10 +35,20 @@ div.into {
 
 #support-form th {
     text-align: right;
+    font-weight: normal;
+    padding: 8px;
 }
 
 #support-form .submitbutton {
     horiz-align: center;
     margin: 0;
-    position: absolute;
+    position: relative;
+}
+
+#support-form tr {
+    padding: 10px;
+}
+
+#pin {
+    font-family: monospace, monospace;
 }
