@@ -52,6 +52,7 @@ func newRouter() *gin.Engine {
 	v1.Handle("GET", "/about", aboutGetUnversioned)
 
 	v1.Handle("POST", "support-request", postHandler)
+	v1.Handle("POST", "callback", callbackHandler)
 
 	addOpenApiDefRoutes(router)
 	addSwaggerUIRoutes(router)

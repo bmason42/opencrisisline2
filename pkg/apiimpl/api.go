@@ -5,6 +5,7 @@
 package apiimpl
 
 import (
+	"fmt"
 	"github.com/bmason42/opencrisisline2/pkg/errors"
 	"github.com/bmason42/opencrisisline2/pkg/generated/v1"
 	"github.com/bmason42/opencrisisline2/pkg/model"
@@ -26,6 +27,23 @@ func aboutGetUnversioned(c *gin.Context) {
 
 	c.JSON(http.StatusOK, resp)
 	log.Println("In about")
+}
+
+type Message struct {
+	Body string
+}
+type Response struct {
+	Message Message
+}
+
+func callbackHandler(c *gin.Context) {
+	c.Request.ParseForm()
+	for key, value := range c.Request.Form {
+		fmt.Printf("%s = %s \n", key, value)
+	}
+	var r Response
+	r.Message.Body = "hello back " + c.Request.Form.Get("Body")
+	c.XML(200, r)
 }
 func postHandler(c *gin.Context) {
 	var help v1.HelpRequest
