@@ -12,7 +12,7 @@ import (
 func TestTwllioConfig_SendText(t *testing.T) {
 	err := LoadConfig()
 	if err != nil {
-		panic("No Config")
+		panic("No config")
 	}
 	type fields struct {
 		TwilloAccountSid string

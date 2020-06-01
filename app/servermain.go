@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	err := model.LoadConfig()
+	err := model.InitModel()
 	if err != nil {
 		log.Error("No config found " + err.Error())
 		panic("Cannot continue")

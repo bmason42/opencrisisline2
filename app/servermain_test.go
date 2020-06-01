@@ -11,6 +11,9 @@ import (
 )
 
 func Test_main(t *testing.T) {
-	model.LoadConfig()
+	err := model.InitModel()
+	if err != nil {
+		panic(err)
+	}
 	apiimpl.RunServer()
 }

@@ -10,7 +10,9 @@ import (
 	"github.com/bmason42/opencrisisline2/pkg/generated/v1"
 	"github.com/bmason42/opencrisisline2/pkg/model"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
+	"math/rand"
 	"net/http"
 )
 
@@ -52,13 +54,20 @@ func postHandler(c *gin.Context) {
 		weberr := MkErrorResponse(errors.OCERROR_ERROR, errors.ERROR_CODE_INVALID_USER_INPUT, c, map[string]string{"data": err.Error()})
 		c.JSON(400, weberr)
 	}
+
+	var supportReq model.SupportRequest
+	supportReq.RequestID = uuid.New().String()
+	pinNumber := rand.Uint32() % 10000
+	supportReq.AuthPin = fmt.Sprintf("%04d", pinNumber)
+	supportReq.Data = help
+
 	ms := model.NewMessageSystem()
-	err = ms.SendText(help.PhoneNumber, help.CallerName, help.Message)
-	if err != nil {
-		weberr := MkErrorResponse(errors.OCERROR_ERROR, errors.ERROR_CODE_UNKNOWN, c, map[string]string{"data": err.Error()})
-		c.JSON(500, weberr)
-	}
-	c.JSON(201, "")
+	go ms.AsyncSendText(help.PhoneNumber, "Please reply to this text with ONLY the PIN Number from the Web Site")
+	var resp v1.HelpResponse
+	resp.AuthPin = supportReq.AuthPin
+	resp.RequestID = supportReq.RequestID
+
+	c.JSON(201, &resp)
 
 }
 func healthCheckGetUnversioned(c *gin.Context) {

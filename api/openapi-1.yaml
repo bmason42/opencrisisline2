@@ -60,6 +60,10 @@ components:
       properties:
         requestID:
           type: string
+          description: the ID record for the request
+        authPin:
+          description: A short auto generated pin the user needs to send in an SMS reply
+          type: string
 
     HelpRequest:
       type: object

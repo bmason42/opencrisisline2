@@ -13,24 +13,30 @@ type ConfigData struct {
 	TwilloAccountSid string
 	TwilloToken      string
 	DutyNumber       string
+	TwilloNumber     string
 }
 
-var Config ConfigData
+var config ConfigData
+
+func GetConfig() ConfigData {
+	return config
+}
 
 //loads the config from the environment
 func LoadConfig() error {
-	Config.TwilloToken = os.Getenv("TWILLO_TOKEN")
-	if len(Config.TwilloToken) == 0 {
+	config.TwilloToken = os.Getenv("TWILLO_TOKEN")
+	if len(config.TwilloToken) == 0 {
 		return errors.New("no twillo token")
 	}
-	Config.TwilloAccountSid = os.Getenv("TWILLO_SID")
-	if len(Config.TwilloAccountSid) == 0 {
+	config.TwilloAccountSid = os.Getenv("TWILLO_SID")
+	if len(config.TwilloAccountSid) == 0 {
 		return errors.New("no twillo sid")
 	}
-	Config.DutyNumber = os.Getenv("DUTY_NUMBER")
-	if len(Config.TwilloAccountSid) == 0 {
+	config.DutyNumber = os.Getenv("DUTY_NUMBER")
+	if len(config.TwilloAccountSid) == 0 {
 		return errors.New("no duty number")
 	}
-
+	//todo, load this from env
+	config.TwilloNumber = "12058318644"
 	return nil
 }

@@ -8,8 +8,9 @@ import "fmt"
 
 //opencrisis2 errors
 const (
-	ERROR_CODE_UNKNOWN            = "unknown"
-	ERROR_CODE_INVALID_USER_INPUT = "invalidrequest"
+	ERROR_CODE_UNKNOWN                = "unknown"
+	ERROR_CODE_INVALID_USER_INPUT     = "invalidrequest"
+	ERROR_CODE_SYSTEM_NOT_INITIALIZED = "noinit"
 )
 
 //network errors

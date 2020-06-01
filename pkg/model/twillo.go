@@ -17,7 +17,8 @@ import (
 )
 
 type MessageSystem interface {
-	SendText(from, name, msg string) error
+	AsyncSendText(toNumber string, msg string)
+	SendText(toNumber string, msg string) error
 }
 
 type TwllioConfig struct {
@@ -26,27 +27,32 @@ type TwllioConfig struct {
 }
 
 func NewMessageSystem() MessageSystem {
-	t := TwllioConfig{TwilloAccountSid: Config.TwilloAccountSid, TwilloToken: Config.TwilloToken}
+	t := TwllioConfig{TwilloAccountSid: config.TwilloAccountSid, TwilloToken: config.TwilloToken}
 	return &t
 }
-func (t *TwllioConfig) SendText(from string, name, msg string) error {
-	msgData := url2.Values{}
-	msgData.Add("To", Config.DutyNumber)
-	msgData.Add("From", "12058318644")
-	//msgData.Add("From","17653352431")
+func (t *TwllioConfig) AsyncSendText(toNumber string, msg string) {
+	err := t.SendText(toNumber, msg)
+	if err != nil {
+		log.Error("Unable to send text")
+	}
+}
+func (t *TwllioConfig) SendText(toNumber string, msg string) error {
 
-	bodyMsg := fmt.Sprintf("%s %s %s", from, name, msg)
-	msgData.Add("Body", bodyMsg)
+	msgData := url2.Values{}
+	msgData.Add("To", toNumber)
+	msgData.Add("From", GetConfig().TwilloNumber)
+
+	msgData.Add("Body", msg)
 	rawMsg := msgData.Encode()
 	msgDataReader := strings.NewReader(rawMsg)
-	url := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages.json", Config.TwilloAccountSid)
+	url := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages.json", config.TwilloAccountSid)
 	//url:=fmt.Sprintf("http://localhost:8080/opencrisisline2/v1/support-request")
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("POST", url, msgDataReader)
-	req.SetBasicAuth(Config.TwilloAccountSid, Config.TwilloToken)
+	req.SetBasicAuth(config.TwilloAccountSid, config.TwilloToken)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	resp, err := client.Do(req)
