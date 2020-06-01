@@ -7,9 +7,14 @@ package main
 import (
 	"github.com/bmason42/opencrisisline2/pkg/apiimpl"
 	"github.com/bmason42/opencrisisline2/pkg/model"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
-	model.LoadConfig()
+	err := model.LoadConfig()
+	if err != nil {
+		log.Error("No config found " + err.Error())
+		panic("Cannot continue")
+	}
 	apiimpl.RunServer()
 }

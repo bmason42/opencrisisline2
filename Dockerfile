@@ -24,6 +24,6 @@ FROM scratch
 #RUN mkdir -p third_party/swaggerui & mkdir -p api
 COPY --from=build /build/out/opencrisisline2_x64linux ./opencrisisline2_x64linux
 COPY --from=build /build/third_party/swaggerui/* ./third_party/swaggerui/
-COPY --from=build /build/web/* ./web/
+COPY --from=build /build/web/ ./web/
 COPY --from=build /build/api/* ./api/
 ENTRYPOINT ["./opencrisisline2_x64linux"]

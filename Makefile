@@ -40,9 +40,12 @@ unittests:
 l2tests:
 
 push:
+	mkdir -p out
 	echo ${BUILD_TAG}
 	docker tag ${DOCKERTAG}:latest bmason42/${DOCKERTAG}:${BUILD_TAG}
-	docker push bmason42/${DOCKERTAG}:${BUILD_TAG}
+	docker tag ${DOCKERTAG}:latest bmason42/${DOCKERTAG}:latest
+	#docker push bmason42/${DOCKERTAG}:${BUILD_TAG}
+	docker push bmason42/${DOCKERTAG}:latest
 	echo Use this image name:
 	echo bmason42/${DOCKERTAG}:${BUILD_TAG}
 	echo "${BUILD_TAG}" >out/buildtag.txt

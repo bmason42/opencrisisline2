@@ -5,6 +5,7 @@
 package model
 
 import (
+	"crypto/tls"
 	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
@@ -38,10 +39,12 @@ func (t *TwllioConfig) SendText(from string, name, msg string) error {
 	msgData.Add("Body", bodyMsg)
 	rawMsg := msgData.Encode()
 	msgDataReader := strings.NewReader(rawMsg)
-	client := &http.Client{}
 	url := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages.json", Config.TwilloAccountSid)
 	//url:=fmt.Sprintf("http://localhost:8080/opencrisisline2/v1/support-request")
-
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("POST", url, msgDataReader)
 	req.SetBasicAuth(Config.TwilloAccountSid, Config.TwilloToken)
 	req.Header.Add("Accept", "application/json")
