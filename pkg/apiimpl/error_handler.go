@@ -14,6 +14,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+func MkErrorResponse(subsystem, code string, c context.Context, parameters map[string]string) *v1.ErrorResponse {
+	locale := getLocale(c)
+	message := errors.GetErrorString(locale, fmt.Sprintf("%s.%s", subsystem, code))
+	return newErrorResponse(subsystem, code, message, parameters)
+}
 func newErrorResponse(subsystem, code string, message string, parameters map[string]string) *v1.ErrorResponse {
 	if parameters == nil {
 		parameters = make(map[string]string)

@@ -9,29 +9,37 @@
     <title>Open Crisis Line</title>
 </head>
 <body>
-<h1>
-    Open Crisis Line
-</h1>
-<span class="into">
-    Burners helping Burners.
-    Please fill in the form below sharing as much information as you want.  But we do need your phone number to contact you
-</span>
+<div class="title">
+    Open Crisis Line, Burners helping Burners
+</div>
+<div class="into">
+
+    We are here to help<br>
+    Please fill in the form below sharing as much information as you want But we do need your phone number to contact
+    you<br>
+    <p>
+        This is a peer support system. You will be put in contact with a ranger. Not necessarily a licensed
+        professional.
+    </p>
+
+</div>
 <form>
-    <table>
+    <table id="support-form">
         <tr>
-            <td>Your phone number:</td>
+            <th>Your phone number:</th>
             <td><input type="tel" id="phone-number"/></td>
         </tr>
         <tr>
-            <td>Your Name (playa, default or none):</td>
+            <th>Your Name (playa, default or none):</th>
             <td><input type="text" id="name"/></td>
         </tr>
         <tr>
-            <td>Tell us what is going on today:</td>
+            <th>Tell us what is going on today:</th>
             <td><textarea id="whats-going-on" rows="3" cols="40"></textarea></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="button" id="submit" value="Connect to us"></td>
+            <td colspan="2" align="center"><input class="submitbutton" type="button" id="submit" value="Connect to us"
+                                                  onclick="handleSupportButton()"></td>
         </tr>
     </table>
 </form>

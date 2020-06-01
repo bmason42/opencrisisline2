@@ -4,8 +4,12 @@
 
 package main
 
-import "github.com/bmason42/opencrisisline2/pkg/apiimpl"
+import (
+	"github.com/bmason42/opencrisisline2/pkg/apiimpl"
+	"github.com/bmason42/opencrisisline2/pkg/model"
+)
 
 func main() {
+	model.LoadConfig()
 	apiimpl.RunServer()
 }

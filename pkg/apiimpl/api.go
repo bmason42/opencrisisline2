@@ -5,11 +5,11 @@
 package apiimpl
 
 import (
-	"fmt"
+	"github.com/bmason42/opencrisisline2/pkg/errors"
 	"github.com/bmason42/opencrisisline2/pkg/generated/v1"
+	"github.com/bmason42/opencrisisline2/pkg/model"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"io/ioutil"
 	"net/http"
 )
 
@@ -28,13 +28,18 @@ func aboutGetUnversioned(c *gin.Context) {
 	log.Println("In about")
 }
 func postHandler(c *gin.Context) {
-	bytes, e := ioutil.ReadAll(c.Request.Body)
-	if e != nil {
-		c.JSON(500, "")
-		return
+	var help v1.HelpRequest
+	err := c.ShouldBindJSON(&help)
+	if err != nil {
+		weberr := MkErrorResponse(errors.OCERROR_ERROR, errors.ERROR_CODE_INVALID_USER_INPUT, c, map[string]string{"data": err.Error()})
+		c.JSON(400, weberr)
 	}
-	s := string(bytes)
-	fmt.Println(s)
+	ms := model.NewMessageSystem()
+	err = ms.SendText(help.PhoneNumber, help.CallerName, help.Message)
+	if err != nil {
+		weberr := MkErrorResponse(errors.OCERROR_ERROR, errors.ERROR_CODE_UNKNOWN, c, map[string]string{"data": err.Error()})
+		c.JSON(500, weberr)
+	}
 	c.JSON(201, "")
 
 }

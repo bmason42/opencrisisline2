@@ -2,6 +2,43 @@
  * Copyright (c) 2020.  This software is made for the Black Rock City Aid group and is provided AS IS with no support or liability under the Apache 2 license.
  */
 
-span.into {
+:root {
+    --fontcolor: #0d5aa7;
+}
 
+body {
+    font-family: sans-serif;
+    color: var(--fontcolor);
+}
+
+div.title {
+    position: relative;
+    width: 50%;
+    left: 33%;
+    font-size: xx-large;
+    font-weight: bold;
+
+}
+
+div.into {
+    position: relative;
+    padding-left: 5%;
+    padding-top: 20px;
+    font-size: medium;
+    color: var(--fontcolor);
+}
+
+#support-form {
+    padding-left: 5%;
+    padding-top: 20px;
+}
+
+#support-form th {
+    text-align: right;
+}
+
+#support-form .submitbutton {
+    horiz-align: center;
+    margin: 0;
+    position: absolute;
 }

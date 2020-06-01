@@ -6,9 +6,11 @@ package main
 
 import (
 	"github.com/bmason42/opencrisisline2/pkg/apiimpl"
+	"github.com/bmason42/opencrisisline2/pkg/model"
 	"testing"
 )
 
 func Test_main(t *testing.T) {
+	model.LoadConfig()
 	apiimpl.RunServer()
 }

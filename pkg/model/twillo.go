@@ -15,18 +15,26 @@ import (
 	"strings"
 )
 
+type MessageSystem interface {
+	SendText(from, name, msg string) error
+}
+
 type TwllioConfig struct {
 	TwilloAccountSid string
 	TwilloToken      string
 }
 
-func (t *TwllioConfig) SendText(from string, msg string) error {
+func NewMessageSystem() MessageSystem {
+	t := TwllioConfig{TwilloAccountSid: Config.TwilloAccountSid, TwilloToken: Config.TwilloToken}
+	return &t
+}
+func (t *TwllioConfig) SendText(from string, name, msg string) error {
 	msgData := url2.Values{}
 	msgData.Add("To", Config.DutyNumber)
 	msgData.Add("From", "12058318644")
 	//msgData.Add("From","17653352431")
 
-	bodyMsg := fmt.Sprintf("%s %s", from, msg)
+	bodyMsg := fmt.Sprintf("%s %s %s", from, name, msg)
 	msgData.Add("Body", bodyMsg)
 	rawMsg := msgData.Encode()
 	msgDataReader := strings.NewReader(rawMsg)
