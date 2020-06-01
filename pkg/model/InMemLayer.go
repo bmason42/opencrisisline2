@@ -17,6 +17,7 @@ func NewInmemoryLayer() PersistenceLayer {
 }
 func (t *InMemoryPersistence) SaveSupportRequest(req *SupportRequest) error {
 	t.IDToRequest[req.RequestID] = req
+	t.PhoneToRequest[req.Data.PhoneNumber] = req
 	return nil
 }
 func (t *InMemoryPersistence) FetchSupportRequestByPhone(phone string) (*SupportRequest, error) {

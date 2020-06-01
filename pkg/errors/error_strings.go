@@ -30,6 +30,7 @@ func mkUSMap() map[string]string {
 	ret[fmt.Sprintf("%s.%s", OCERROR_ERROR, ERROR_CODE_UNKNOWN)] = "An unknown error occurred. "
 	ret[fmt.Sprintf("%s.%s", OCERROR_ERROR, ERROR_CODE_INVALID_USER_INPUT)] = "Invalid user data. "
 	ret[fmt.Sprintf("%s.%s", OCERROR_ERROR, ERROR_CODE_SYSTEM_NOT_INITIALIZED)] = "The model of the system has not been initialized. "
+	ret[fmt.Sprintf("%s.%s", OCERROR_ERROR, ERROR_CODE_NOT_VALID_NUMBER)] = "The provided phone number does not appear to be valid.  Please enter a valid number. "
 
 	return ret
 }

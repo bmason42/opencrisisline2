@@ -29,6 +29,8 @@ function sendSupportRequest(number, name, msg) {
         data: dataToSend,
         dataType: "text"
     }).done(function (newOb) {
+        let resp = JSON.parse(newOb);
+        $("#pin").text("Text This Pin:" + resp.authPin)
     }).fail(function (jqXHR, textStatus, errorThrown) {
         handleError(jqXHR.statusText + " " + jqXHR.responseText);
     })

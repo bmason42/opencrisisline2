@@ -7,6 +7,8 @@ package model
 import (
 	"github.com/bmason42/opencrisisline2/pkg/errors"
 	v1 "github.com/bmason42/opencrisisline2/pkg/generated/v1"
+	"math/rand"
+	"time"
 )
 
 type SupportRequest struct {
@@ -22,6 +24,7 @@ type PersistenceLayer interface {
 var persistence PersistenceLayer
 
 func InitModel() error {
+	rand.Seed(time.Now().Unix())
 	err := LoadConfig()
 	if err != nil {
 		return err

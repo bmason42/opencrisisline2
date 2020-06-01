@@ -11,6 +11,7 @@ const (
 	ERROR_CODE_UNKNOWN                = "unknown"
 	ERROR_CODE_INVALID_USER_INPUT     = "invalidrequest"
 	ERROR_CODE_SYSTEM_NOT_INITIALIZED = "noinit"
+	ERROR_CODE_NOT_VALID_NUMBER       = "numbernotvalid"
 )
 
 //network errors
